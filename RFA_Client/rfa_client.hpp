@@ -18,9 +18,9 @@ public:
     void showFileInfo(const fs::path& file) const;
     void showDirInfo(const fs::path& dir) const;
 
-    void switchToRootDir() const;
+    void switchToRootDir();
     void switchToDirName(const fs::path& dir);
-    void switchToParentDir() const;
+    void switchToParentDir();
 
     void downloadFile() const;
     void uploadFile() const;
@@ -36,6 +36,8 @@ private:
     void sendData(const int fd, const std::string& data);
     const std::string recvData(const int sockfd);
     void sendErrorMsg(const int sockfd, const std::string& msg);
+
+    void getCommandFromServer(); //возвращает пеерчисление
     void serverHandler();
 
     fs::path current_dir_ = "/home/chaginsergey/Downloads/test"; //for test

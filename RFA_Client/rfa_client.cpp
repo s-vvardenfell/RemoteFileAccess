@@ -50,9 +50,12 @@ void RFA_Client::showDirInfo(const fs::path& dir) const
         std::cout << "Not a directory" << std::endl;
 }
 
-void RFA_Client::switchToRootDir() const
+void RFA_Client::switchToRootDir()
 {
-    std::cout << current_dir_.root_name() << std::endl;
+    //std::cout << current_dir_.root_name() << std::endl;
+    //std::cout << current_dir_.root_directory() << std::endl;
+    std::cout << current_dir_.root_path() << std::endl;
+    current_dir_ /= current_dir_.root_path();
 }
 
 void RFA_Client::switchToDirName(const fs::path& dir)
@@ -60,9 +63,10 @@ void RFA_Client::switchToDirName(const fs::path& dir)
     current_dir_ /= dir.string();
 }
 
-void RFA_Client::switchToParentDir() const
+void RFA_Client::switchToParentDir()
 {
     std::cout << current_dir_.parent_path() << std::endl;
+    current_dir_ /= current_dir_.parent_path();
 }
 
 void RFA_Client::downloadFile() const
@@ -127,6 +131,32 @@ void RFA_Client::deleteDir(const fs::path& dir, bool add_current_dir) const
     else
     {
         std::cout << "Not a directory" << std::endl;
+    }
+
+}
+
+void RFA_Client::getCommandFromServer()
+{
+    //возвращает значение перечисляемого типа
+}
+
+void RFA_Client::serverHandler()
+{
+    int cmnd = 0;
+
+    while (1)
+    {
+        getCommandFromServer();
+        
+        switch (cmnd) //перечисляемый тип
+        {
+            case 1://значение перечисляемого типа
+            {
+                printf("Exit programm\n"); exit(0); break;
+            }
+
+            default: break;
+        }
     }
 
 }
