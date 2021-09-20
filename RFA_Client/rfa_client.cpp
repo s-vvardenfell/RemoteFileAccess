@@ -28,10 +28,11 @@ void RFA_Client::showCurrDirInfo() const
 
 void RFA_Client::showFileInfo(const fs::path& file) const
 {
-    if(!fs::is_directory(file)) //дб функц для файлов
+    if(!fs::is_directory(current_dir_ / file)) //дб функц для файлов
     {
-        std::cout << file.filename() << std::endl;
-        std::cout << file.extension() << std::endl;
+        //std::cout << (current_dir_ / file).filename() << std::endl; знаю и так
+        std::cout << (current_dir_ / file).parent_path() << std::endl;
+        std::cout << (current_dir_ / file).extension() << std::endl;
     }
     else
         std::cout << "Not a file" << std::endl;
@@ -84,21 +85,48 @@ void RFA_Client::copyDir() const
 
 }
 
-void RFA_Client::deleteFile(const fs::path& file) const
+void RFA_Client::moveOrRename(const fs::path& old_p, const fs::path& new_p, bool add_current_dir) const
 {
-    std::uintmax_t n = fs::remove(current_dir_ / file);
-    std::cout << "Deleted " << n << " files or directories" << std::endl;
+    if (add_current_dir)
+        fs::rename(current_dir_ / old_p, current_dir_ / new_p);
+    else
+        fs::rename(old_p, new_p);
 }
 
-void RFA_Client::deleteDir(const fs::path& dir) const
+void RFA_Client::deleteFile(const fs::path& file, bool add_current_dir) const
 {
-    if(fs::is_directory(dir))
+    if (add_current_dir)
     {
-        std::uintmax_t n = fs::remove_all(current_dir_ / dir);
+        std::uintmax_t n = fs::remove(current_dir_ / file);
         std::cout << "Deleted " << n << " files or directories" << std::endl;
+    }
+    else
+    {
+        std::uintmax_t n = fs::remove(file);
+        std::cout << "Deleted " << n << " files or directories" << std::endl;
+    }
+
+}
+
+void RFA_Client::deleteDir(const fs::path& dir, bool add_current_dir) const
+{
+    if (fs::is_directory(dir))
+    {
+        if (add_current_dir)
+        {
+            std::uintmax_t n = fs::remove_all(current_dir_ / dir);
+            std::cout << "Deleted " << n << " files or directories" << std::endl;
+        }
+        else
+        {
+
+            std::uintmax_t n = fs::remove_all(dir);
+            std::cout << "Deleted " << n << " files or directories" << std::endl;
+        }
     }
     else
     {
         std::cout << "Not a directory" << std::endl;
     }
+
 }

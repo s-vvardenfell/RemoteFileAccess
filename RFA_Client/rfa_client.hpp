@@ -27,10 +27,10 @@ public:
 
     void copyFile() const;
     void copyDir() const;
-    void moveOrRename() const;
+    void moveOrRename(const fs::path& old_p, const fs::path& new_p, bool add_current_dir = true) const;
 
-    void deleteFile(const fs::path& file) const; //removes file or empty dir
-    void deleteDir(const fs::path& dir) const; //deletes dir and its content
+    void deleteFile(const fs::path& file, bool add_current_dir = true) const; //removes file or empty dir
+    void deleteDir(const fs::path& dir, bool add_current_dir = true) const; //deletes dir and its content
 
 private:
     void sendData(const int fd, const std::string& data);

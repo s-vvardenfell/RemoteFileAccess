@@ -11,6 +11,7 @@
 /bin
 /obj
 /build*
+RFA_Client/RFA_Client/
 
 # Prerequisites
 *.d
