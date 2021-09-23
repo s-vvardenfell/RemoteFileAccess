@@ -135,24 +135,84 @@ void RFA_Client::deleteDir(const fs::path& dir, bool add_current_dir) const
 
 }
 
-void RFA_Client::getCommandFromServer()
+COMMANDS RFA_Client::getCommandFromServer()
 {
     //возвращает значение перечисляемого типа
+    //навигацией и удалением занимается один класс
+    //а связью с сервером - другой
+    //класс-связист инкапсулирует буст асио, получает аргументы от сервера и вызывает ф-ии класса RFA_Client
+    //RFA_Client дб переименован тк RFA_Client это тот класс который взаимодействует с сервером комманд
 }
 
 void RFA_Client::serverHandler()
 {
-    int cmnd = 0;
-
     while (1)
     {
-        getCommandFromServer();
-        
-        switch (cmnd) //перечисляемый тип
+        switch (getCommandFromServer())
         {
-            case 1://значение перечисляемого типа
+            case COMMANDS::EXIT:
             {
-                printf("Exit programm\n"); exit(0); break;
+                 printf("Exit programm\n"); exit(0);
+            }
+            case COMMANDS::SHOW_DIR_CONTENT:
+            {
+                 break;
+            }
+            case COMMANDS::SHOW_CURRENT_DIR_CONTENT:
+            {
+                 break;
+            }
+            case COMMANDS::SHOW_CURRENT_DIR_INFO:
+            {
+                break;
+            }
+            case COMMANDS::SHOW_DIR_INFO:
+            {
+                break;
+            }
+            case COMMANDS::SHOW_FILE_INFO:
+            {
+                break;
+            }
+            case COMMANDS::SWITCH_TO_ROOT_DIR:
+            {
+                break;
+            }
+            case COMMANDS::SWITCH_TO_DIR:
+            {
+                break;
+            }
+            case COMMANDS::SWITCH_TO_PARENT_DIR:
+            {
+                break;
+            }
+            case COMMANDS::DOWNLOAD_FILE:
+            {
+                break;
+            }
+            case COMMANDS::UPLOAD_FILE:
+            {
+                break;
+            }
+            case COMMANDS::COPY_FILE:
+            {
+                break;
+            }
+            case COMMANDS::COPY_DIR:
+            {
+                break;
+            }
+            case COMMANDS::MOVE_OR_RENAME:
+            {
+                break;
+            }
+            case COMMANDS::DELETE_DIR:
+            {
+                break;
+            }
+            case COMMANDS::DELETE_FILE:
+            {
+                break;
             }
 
             default: break;

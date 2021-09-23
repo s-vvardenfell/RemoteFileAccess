@@ -7,6 +7,26 @@
 
 namespace fs = std::filesystem;
 
+enum class COMMANDS
+{
+    EXIT,
+    SHOW_DIR_CONTENT,
+    SHOW_CURRENT_DIR_CONTENT,
+    SHOW_CURRENT_DIR_INFO,
+    SHOW_DIR_INFO,
+    SHOW_FILE_INFO,
+    SWITCH_TO_ROOT_DIR,
+    SWITCH_TO_DIR,
+    SWITCH_TO_PARENT_DIR,
+    DOWNLOAD_FILE,
+    UPLOAD_FILE,
+    COPY_FILE,
+    COPY_DIR,
+    MOVE_OR_RENAME,
+    DELETE_DIR,
+    DELETE_FILE
+};
+
 class RFA_Client final
 {
 public:
@@ -37,7 +57,7 @@ private:
     const std::string recvData(const int sockfd);
     void sendErrorMsg(const int sockfd, const std::string& msg);
 
-    void getCommandFromServer(); //возвращает пеерчисление
+    COMMANDS getCommandFromServer();
     void serverHandler();
 
     fs::path current_dir_ = "/home/chaginsergey/Downloads/test"; //for test
