@@ -20,8 +20,7 @@ enum class COMMANDS
     SWITCH_TO_PARENT_DIR,
     DOWNLOAD_FILE,
     UPLOAD_FILE,
-    COPY_FILE,
-    COPY_DIR,
+    COPY_FILE_OR_DIR,
     MOVE_OR_RENAME,
     DELETE_DIR,
     DELETE_FILE
@@ -45,8 +44,7 @@ public:
     void downloadFile() const;
     void uploadFile() const;
 
-    void copyFile() const;
-    void copyDir() const;
+    void copyFileOrDir() const;
     void moveOrRename(const fs::path& old_p, const fs::path& new_p, bool add_current_dir = true) const;
 
     void deleteFile(const fs::path& file, bool add_current_dir = true) const; //removes file or empty dir

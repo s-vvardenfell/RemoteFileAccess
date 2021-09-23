@@ -79,12 +79,7 @@ void RFA_Client::uploadFile() const
 
 }
 
-void RFA_Client::copyFile() const
-{
-
-}
-
-void RFA_Client::copyDir() const
+void RFA_Client::copyFileOrDir() const
 {
 
 }
@@ -109,7 +104,6 @@ void RFA_Client::deleteFile(const fs::path& file, bool add_current_dir) const
         std::uintmax_t n = fs::remove(file);
         std::cout << "Deleted " << n << " files or directories" << std::endl;
     }
-
 }
 
 void RFA_Client::deleteDir(const fs::path& dir, bool add_current_dir) const
@@ -194,11 +188,7 @@ void RFA_Client::serverHandler()
             {
                 break;
             }
-            case COMMANDS::COPY_FILE:
-            {
-                break;
-            }
-            case COMMANDS::COPY_DIR:
+            case COMMANDS::COPY_FILE_OR_DIR:
             {
                 break;
             }
