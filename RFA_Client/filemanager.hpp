@@ -1,5 +1,5 @@
-#ifndef RFA_CLIENT_HPP
-#define RFA_CLIENT_HPP
+#ifndef FILEMANAGER_H
+#define FILEMANAGER_H
 
 #include <filesystem>
 #include <iostream>
@@ -44,7 +44,7 @@ public:
     void downloadFile() const;
     void uploadFile() const;
 
-    void copyFileOrDir() const;
+    void copyFileOrDir(const fs::path& old_p, const fs::path& new_p) const;
     void moveOrRename(const fs::path& old_p, const fs::path& new_p, bool add_current_dir = true) const;
 
     void deleteFile(const fs::path& file, bool add_current_dir = true) const; //removes file or empty dir
@@ -62,4 +62,4 @@ private:
 
 };
 
-#endif // RFA_CLIENT_HPP
+#endif // FILEMANAGER_H
