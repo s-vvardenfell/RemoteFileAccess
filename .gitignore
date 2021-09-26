@@ -1,7 +1,6 @@
 *.depend
 *.cbp
 *.layout
-*.pro
 *.user
 *.txt
 

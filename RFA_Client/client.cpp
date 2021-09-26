@@ -1,8 +1,10 @@
 #include "client.hpp"
 
-Client::Client() : fmptr_(nullptr)
+Client::Client() : fmptr_(nullptr), sock_(io_context_), resolver_(io_context_)
 {
     fmptr_ = std::make_unique<Filemanager>();
+
+    boost::asio::connect(sock_, resolver_.resolve(host, port));
 }
 
 COMMANDS Client::getCommandFromServer()
@@ -20,14 +22,22 @@ void Client::uploadFile() const
 
 }
 
-void Client::sendData(const int fd, const std::string &data)
+void Client::sendData(const std::string &data)
 {
-
+    std::cout << "Enter message: ";
+    char request[max_length];
+    std::cin.getline(request, max_length);
+    request_length_ = std::strlen(request);
+    boost::asio::write(sock_, boost::asio::buffer(request, request_length_));
 }
 
-const std::string Client::recvData(const int sockfd)
+const std::string Client::recvData()
 {
-
+    char reply[max_length];
+    size_t reply_length = boost::asio::read(sock_, boost::asio::buffer(reply, request_length_));
+    std::cout << "Reply is: ";
+    std::cout.write(reply, reply_length);
+    std::cout << "\n";
 }
 
 void Client::sendErrorMsg(const int sockfd, const std::string &msg)

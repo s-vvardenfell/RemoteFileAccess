@@ -6,7 +6,16 @@
 #include <string>
 #include <memory>
 
+#include <boost/asio.hpp>
+#include <boost/asio/io_context.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/write.hpp>
+
 #include "filemanager.hpp"
+
+using boost::asio::ip::tcp;
+
+static const constexpr int max_length = 1024;
 
 enum class COMMANDS
 {
@@ -34,17 +43,26 @@ public:
 
     void serverHandler();
 
+    //temporary public
+    void sendData(const std::string& data);
+    const std::string recvData();
+    void sendErrorMsg(const int sockfd, const std::string& msg);
+
 private:
     COMMANDS getCommandFromServer();
 
     void downloadFile() const;
     void uploadFile() const;
 
-    void sendData(const int fd, const std::string& data);
-    const std::string recvData(const int sockfd);
-    void sendErrorMsg(const int sockfd, const std::string& msg);
-
     std::unique_ptr<Filemanager> fmptr_;
+
+    const char* host = "127.0.0.1";
+    const char* port = "8080";
+    size_t request_length_; //temporary
+
+    boost::asio::io_context io_context_;
+    tcp::socket sock_;
+    tcp::resolver resolver_;
 };
 
 #endif // CLIENT_HPP
